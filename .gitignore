@@ -33,9 +33,8 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# vercel
-.vercel
+# Sentry Config File
+.env.sentry-build-plugin
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Sentry Auth Token - NEVER COMMIT
+SENTRY_AUTH_TOKEN
