@@ -7,13 +7,13 @@ import { auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { logger } from "@/lib/logger";
 import { handleAuthError } from "@/lib/errorHandler";
-import { 
-  getStoredUserData, 
-  validateStoredData, 
+import {
+  getStoredUserData,
+  validateStoredData,
   clearAuthData,
   storeUserData,
   startTokenRefresh,
-  stopTokenRefresh 
+  stopTokenRefresh,
 } from "@/lib/tokenManager";
 
 export default function Wardrobe() {
@@ -35,7 +35,10 @@ export default function Wardrobe() {
 
         if (!storedOwner || !authToken) {
           // No stored auth, redirect immediately
-          logger.warn('No stored auth found', { hasOwner: !!storedOwner, hasToken: !!authToken });
+          logger.warn("No stored auth found", {
+            hasOwner: !!storedOwner,
+            hasToken: !!authToken,
+          });
           clearAuthData();
           router.push("/account/auth");
           return;
@@ -47,7 +50,7 @@ export default function Wardrobe() {
 
           if (!user) {
             // No authenticated user, clear data and redirect
-            logger.warn('No authenticated user');
+            logger.warn("No authenticated user");
             clearAuthData();
             router.push("/account/auth");
             return;
@@ -56,7 +59,7 @@ export default function Wardrobe() {
           try {
             // Verify the stored user matches the authenticated user
             if (!validateStoredData(storedOwner)) {
-              logger.warn('UID mismatch - refreshing user data');
+              logger.warn("UID mismatch - refreshing user data");
               // UID mismatch - refresh data
               await storeUserData(user);
               if (isSubscribed) {
@@ -70,11 +73,11 @@ export default function Wardrobe() {
 
             // Start automatic token refresh
             startTokenRefresh();
-            
-            logger.authEvent('wardrobe_loaded', user.uid);
+
+            logger.authEvent("wardrobe_loaded", user.uid);
           } catch (error) {
             logger.error("Error loading user data", error);
-            handleAuthError(error, { context: 'wardrobe_init' });
+            handleAuthError(error, { context: "wardrobe_init" });
             clearAuthData();
             router.push("/account/auth");
           } finally {
@@ -84,7 +87,7 @@ export default function Wardrobe() {
           }
         });
       } catch (error) {
-        logger.error('Failed to initialize auth', error);
+        logger.error("Failed to initialize auth", error);
         clearAuthData();
         router.push("/account/auth");
       }
@@ -98,26 +101,20 @@ export default function Wardrobe() {
       if (authUnsubscribe) {
         authUnsubscribe();
       }
-      }
     };
   }, [router]);
 
   const handleLogout = async () => {
     try {
-      logger.authEvent('logout_attempt', owner?.uid);
+      logger.authEvent("logout_attempt", owner?.uid);
       await logout();
       clearAuthData();
-      logger.authEvent('logout_success');
-      router.push(\"/account/auth\");
+      logger.authEvent("logout_success");
+      router.push("/account/auth");
     } catch (error) {
-      logger.error(\"Logout error\", error);
+      logger.error("Logout error", error);
       // Force logout even if there's an error
       clearAuthData();
-      router.push(\"/account/auth\");
-    }
-  };
-      document.cookie = "authToken=; path=/; max-age=0";
-      document.cookie = "owner=; path=/; max-age=0";
       router.push("/account/auth");
     }
   };
