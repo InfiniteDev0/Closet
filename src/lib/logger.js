@@ -119,15 +119,7 @@ class Logger {
    * Log authentication events
    */
   authEvent(event, userId = null, metadata = {}) {
-    // Send to Sentry performance monitoring
-    if (this.isProduction) {
-      Sentry.addBreadcrumb({
-        category: "performance",
-        message: `${metric}: ${value}ms`,
-        level: "info",
-        data: context,
-      });
-    }
+    const message = `Auth Event: ${event}`;
     const context = {
       event,
       userId,
@@ -151,7 +143,16 @@ class Logger {
     if (this.isDevelopment) {
       console.log(`[PERFORMANCE] ${metric}: ${value}ms`, context);
     }
-    // TODO: Send to performance monitoring service
+
+    // Send to Sentry performance monitoring
+    if (this.isProduction) {
+      Sentry.addBreadcrumb({
+        category: "performance",
+        message: `${metric}: ${value}ms`,
+        level: "info",
+        data: context,
+      });
+    }
   }
 }
 

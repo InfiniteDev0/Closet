@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronRight, Mail, AlertCircle } from "lucide-react";
+import Image from "next/image";
+import {
+  ChevronRight,
+  Mail,
+  AlertCircle,
+  File,
+  Settings,
+  Search,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signIn, signUp, signInWithGoogle } from "@/lib/auth";
 import { auth } from "@/lib/firebase";
@@ -14,6 +22,7 @@ import {
 } from "@/lib/validators";
 import { handleAuthError, retryOperation, isOnline } from "@/lib/errorHandler";
 import { storeUserData } from "@/lib/tokenManager";
+import { OrbitingCirclesDemo } from "@/components/shared/orbitingcirclesdemo";
 
 export default function AuthPage() {
   const [email, setEmail] = useState("");
@@ -182,40 +191,26 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex">
-          {/* Left Side - Vertical Text with Blue Accent */}
-          <div className="w-[35%] sm:w-[30%] bg-white flex items-center justify-center px-4 py-8">
-            <div className="flex items-start">
-              <h1
-                className="text-7xl teachers font-light tracking-tighter "
-                style={{
-                  writingMode: "vertical-rl",
-                  textOrientation: "upright",
-                }}
-              >
-                CLOSET
-              </h1>
-              <p
-                className="text-lg text-gray-600 mt-6 sm:mt-8"
-                style={{
-                  writingMode: "vertical-rl",
-                  maxWidth: "200px",
-                }}
-              >
-                {isSignIn
-                  ? "Welcome back to your wardrobe."
-                  : "Organize and manage your clothes effortlessly."}
-              </p>
-            </div>
+      <div className="flex flex-col">
+        {/* Left Side - Vertical Text with Blue Accent */}
+        <div className="bg-white flex flex-col items-center justify-center px-4 py-8 gap-5">
+          <div className="flex flex-col items-center text-center">
+            <h1 className="text-4xl teachers font-light tracking-tighter ">
+              CLOSET
+            </h1>
+            <p className="text-sm text-gray-600">
+              {isSignIn
+                ? "Welcome back to your wardrobe."
+                : "Organize and manage your clothes effortlessly."}
+            </p>
           </div>
-
-          {/* Right Side - Closet Image */}
-          <div className="w-[65%] sm:w-[70%] relative overflow-hidden rounded-bl-[40px] sm:rounded-tl-[50px]">
-            <img
-              src="https://s3-blog.homelane.com/design-ideas/wp-content/uploads/2025/09/16152052/luxury-walk-in-closet-dressing-room-design-wardrobe-storage-1024x640.png"
-              alt="Closet"
-              className="w-full h-full object-cover object-left"
+          <div className="flex items-center justify-center">
+            <Image
+              src="https://kuwhirtafuvipkb0.public.blob.vercel-storage.com/WhatsApp%20Image%202026-02-05%20at%2019.13.36%20%281%29.jpeg"
+              alt=""
+              width={600}
+              height={600}
+              className="w-[58%] h-auto"
             />
           </div>
         </div>
@@ -235,9 +230,11 @@ export default function AuthPage() {
                 className="w-full bg-black hover:bg-gray-900 text-white rounded-full py-6 flex items-center justify-center gap-3 disabled:opacity-50"
                 size="lg"
               >
-                <img
+                <Image
                   src="https://www.svgrepo.com/show/475656/google-color.svg"
                   alt="Google"
+                  width={20}
+                  height={20}
                   className="w-5 h-5"
                 />
                 <span className="text-sm font-medium">
@@ -265,7 +262,7 @@ export default function AuthPage() {
               <p className="text-center text-xs text-gray-500 mt-4">
                 {isSignIn ? (
                   <>
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <Button
                       onClick={toggleMode}
                       variant="link"
