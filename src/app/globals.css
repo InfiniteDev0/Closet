@@ -3,6 +3,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Agrandir";
+  src: url("./assets/fonts/Agrandir-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 body{
   padding: 0;
   margin: 0;
@@ -13,6 +21,10 @@ body{
 
 .teachers{
   font-family: 'Teachers';
+}
+
+.agrandir{
+  font-family: "Agrandir", "Outfit", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));

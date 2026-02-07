@@ -15,6 +15,8 @@ import {
   startTokenRefresh,
   stopTokenRefresh,
 } from "@/lib/tokenManager";
+import Navbar from "@/components/shared/navbar";
+import ClosetView from "./views/closetviews";
 
 export default function Wardrobe() {
   const [owner, setOwner] = useState(null);
@@ -119,53 +121,27 @@ export default function Wardrobe() {
     }
   };
 
-  if (loading || !owner) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  // if (loading || !owner) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen bg-white">
+  //       <div className="flex flex-col items-center space-y-4">
+  //         {/* Spinner */}
+  //         <div className="w-10 h-10 border-4 border-gray-300 border-t-gray-900 rounded-full animate-spin"></div>
+
+  //         {/* Subtle text */}
+  //         <p className="text-sm text-gray-500 tracking-wide">
+  //           Loading your wardrobe...
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <h1 className="text-2xl font-light tracking-wider">CLOSET</h1>
-            <button
-              onClick={handleLogout}
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Welcome, {owner.name || owner.email || "User"}!
-          </h2>
-          <p className="text-gray-600">Your personal wardrobe awaits!</p>
-
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900">My Clothes</h3>
-              <p className="text-2xl font-bold mt-2">0</p>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900">Outfits</h3>
-              <p className="text-2xl font-bold mt-2">0</p>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900">Categories</h3>
-              <p className="text-2xl font-bold mt-2">0</p>
-            </div>
-          </div>
-        </div>
-      </main>
+    <div className="">
+      <ClosetView owner={owner} />
     </div>
   );
 }
